@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         display: "flex",
         flexDirection: "row",
+        marginBottom: 10
 
     },
     searchInput: {

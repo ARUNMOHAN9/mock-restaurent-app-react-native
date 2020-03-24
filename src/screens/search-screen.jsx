@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 import useYelpBusiness from '../hooks/useYelpBusiness';
 
@@ -12,21 +12,21 @@ const SearchScreen = () => {
     const [searchRestaurent, results, errorMsg] = useYelpBusiness();
 
     const filterResultsByPrice = (price) => {
-        return results.filter( (result) => result.price === price)
+        return results.filter((result) => result.price === price)
     }
-    
-    return (
-        <View>
-            <SearchBar term={searchTerm}
-            termChange={(newTerm) => onSearch(newTerm)}
-            onSubmit={() => searchRestaurent(searchTerm)}/>
-            {errorMsg ? <Text>{errorMsg}</Text> : null}
-            <Text>We have found {results.length} results</Text>
 
-            <ResultsWrapper results={filterResultsByPrice('$')} title={'Cost Effective'}/>
-            <ResultsWrapper results={filterResultsByPrice('$$')} title={'Bit Pricey'}/>
-            <ResultsWrapper results={filterResultsByPrice('$$$')} title={'Big spender'}/>
-        </View>
+    return (
+        <>
+            <SearchBar term={searchTerm}
+                termChange={(newTerm) => onSearch(newTerm)}
+                onSubmit={() => searchRestaurent(searchTerm)} />
+            {errorMsg ? <Text>{errorMsg}</Text> : null}
+            <ScrollView>
+                <ResultsWrapper results={filterResultsByPrice('$')} title={'Cost Effective'} />
+                <ResultsWrapper results={filterResultsByPrice('$$')} title={'Bit Pricey'} />
+                <ResultsWrapper results={filterResultsByPrice('$$$')} title={'Big spender'} />
+            </ScrollView>
+        </>
     );
 }
 
